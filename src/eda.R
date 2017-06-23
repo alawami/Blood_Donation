@@ -33,6 +33,7 @@ validate %<>% mutate(Made_Donation_in_March_2007 = factor(Made_Donation_in_March
                                                           levels = c(1, 0), labels = c("Donated", "Did_not_donate")))
 
 ### Data summary
+source("src/features.R")
 set.seed(123)
 dataSample <- train %>% sample_frac(0.6)
 
@@ -40,7 +41,14 @@ dataSample %>% select(Made_Donation_in_March_2007) %>% table %>% prop.table()
 
 summary(train)
 
+ggplot(dataSample, aes(Number_of_Donations, Made_Donation_in_March_2007, col = Made_Donation_in_March_2007)) +
+  geom_point(size = 0.5, position = position_jitter())
 
-# ggplot(trainSet, aes(Total_Volume_Donated, Made_Donation_in_March_2007, col = Made_Donation_in_March_2007)) +
-  # geom_boxplot()
+ggplot(dataSample, aes(Months_since_First_Donation, Made_Donation_in_March_2007, col = Made_Donation_in_March_2007)) +
+  geom_point(size = 0.5, position = position_jitter())
 
+ggplot(dataSample, aes(Months_since_Last_Donation, Made_Donation_in_March_2007, col = Made_Donation_in_March_2007)) +
+  geom_point(size = 0.5, position = position_jitter())
+
+ggplot(dataSample, aes(frequency_of_donation, Made_Donation_in_March_2007, col = Made_Donation_in_March_2007)) +
+  geom_point(size = 0.5, position = position_jitter())
